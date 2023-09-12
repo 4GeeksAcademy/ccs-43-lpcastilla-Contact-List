@@ -2,14 +2,14 @@ import React, { useEffect, useContext } from "react";
 import { Context } from "../store/appContext"; 
 import { Link } from "react-router-dom";
 
-export const Card = (data) => {
+export const Card = ({data}) => {
 
 	return (
         <div className="container-fluid d-flex justify-content-center">
             <div className="card mb-3" style={{width:"82%"}}>
                 <div className="row g-0">
                     <div className="col-md-3">
-                        <img src="..." className="img-fluid rounded-start" alt="..."/>
+                        <img src={`https://api.multiavatar.com/${data.full_name}.png`} className="img-fluid rounded-start" style={{width:"70%"}}alt="..."/>
                     </div>
                     <div className="col-md-7">
                         <div className="card-body text-start">

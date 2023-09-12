@@ -6,6 +6,7 @@ import { Context } from "../store/appContext";
 import "../../styles/demo.css";
 
 export const Demo = () => {
+	const [data, setData] = useState ("");
 	const { store, actions } = useContext(Context);
 
 	return (
@@ -18,6 +19,11 @@ export const Demo = () => {
 						type="name" 
 						className="form-control" 
 						id="fullname" 
+						value={data.full_name}
+						onChange={(event) => {
+							setData(event.target.value);
+							}	
+						}
 						placeholder="Enter full name"
 					/>
 				</div>
@@ -52,7 +58,7 @@ export const Demo = () => {
 			</form>
 			<br />
 			<Link to="/">
-				<a className="link">Get back to contacts</a>
+				<div className="link">Get back to contacts</div>
 			</Link>
 		</div>
 	);
