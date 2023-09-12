@@ -9,34 +9,50 @@ export const Demo = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="container">
-			<ul className="list-group">
-				{store.demo.map((item, index) => {
-					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
-							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
-							</Link>
-							{// Conditional render example
-							// Check to see if the background is orange, if so, display the message
-							item.background === "orange" ? (
-								<p style={{ color: item.initial }}>
-									Check store/flux.js scroll to the actions to see the code
-								</p>
-							) : null}
-							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
-							</button>
-						</li>
-					);
-				})}
-			</ul>
+		<div className="container mt-5">
+			<h1 className="text-center">Add a new contact</h1>
+			<form>
+				<div className="mb-3">
+					<label for="fullname" className="form-label">Full name</label>
+					<input 
+						type="name" 
+						className="form-control" 
+						id="fullname" 
+						placeholder="Enter full name"
+					/>
+				</div>
+				<div className="mb-3">
+					<label for="email" className="form-label">Email</label>
+					<input 
+						type="email" 
+						className="form-control" 
+						id="email"
+						placeholder="Enter email"
+					/>
+				</div>
+				<div className="mb-3">
+					<label for="phone" className="form-label">Phone</label>
+					<input 
+						type="phone" 
+						className="form-control" 
+						id="phone"
+						placeholder="Enter phone"
+					/>
+				</div>
+				<div className="mb-3">
+					<label for="address" className="form-label">Address</label>
+					<input 
+						type="address" 
+						className="form-control" 
+						id="address"
+						placeholder="Enter address"
+					/>
+				</div>
+				<button type="submit" className="btn btn-primary" style={{width:"100%"}}>Save</button>
+			</form>
 			<br />
 			<Link to="/">
-				<button className="btn btn-primary">Back home</button>
+				<a className="link">Get back to contacts</a>
 			</Link>
 		</div>
 	);
