@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { Context } from "../store/appContext"; 
 import { Link } from "react-router-dom";
 
-export const Card = () => {
+export const Card = (data) => {
+
 	return (
         <div className="container-fluid d-flex justify-content-center">
             <div className="card mb-3" style={{width:"82%"}}>
@@ -11,13 +13,13 @@ export const Card = () => {
                     </div>
                     <div className="col-md-7">
                         <div className="card-body text-start">
-                            <h5 className="card-title">Card title</h5>
+                            <h5 className="card-title">{data.full_name}</h5>
                             <p className="card-text">
                                 <i className="fa-solid fa-location-dot me-3"></i>
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                {data.address}
                             </p>
-                            <p className="card-text"><i className="fa-solid fa-phone-flip me-3"></i><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-                            <p className="card-text"><i className="fa-solid fa-envelope me-3"></i><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+                            <p className="card-text"><i className="fa-solid fa-phone-flip me-3"></i><small className="text-body-secondary">{data.phone}</small></p>
+                            <p className="card-text"><i className="fa-solid fa-envelope me-3"></i><small className="text-body-secondary">{data.email}</small></p>
                         </div>
                     </div>
                     <div className="col-md-2">
