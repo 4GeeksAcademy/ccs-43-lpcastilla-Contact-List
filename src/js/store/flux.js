@@ -26,7 +26,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			newContact: async () => {
+			newContact: async (newContactData) => {
 				try {
 					const API_URL = "https://playground.4geeks.com/apis/fake/contact/";
 					const requestConfig = {
@@ -34,7 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: {
 							"Content-type": "application/json"
 						},
-						body: JSON.stringify([])
+						body: JSON.stringify(newContactData)
 					}
 					const response = await fetch(API_URL, requestConfig); 
 						if (response.status != 200) {

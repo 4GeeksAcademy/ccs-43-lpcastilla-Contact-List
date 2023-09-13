@@ -6,55 +6,110 @@ import { Context } from "../store/appContext";
 import "../../styles/demo.css";
 
 export const Demo = () => {
-	const [data, setData] = useState ("");
-	const { store, actions } = useContext(Context);
+	const { actions } = useContext(Context);
+
+	const [newContactData, setNewContactData] = useState({
+		full_name: "",
+		email: "",
+		agenda_slug: "leonardo_agenda",
+		address: "",
+		phone: "",
+	});
+
+	const handleSubmit = async (event) => {
+		event.preventDefault(); 
+
+		await actions.newContact(newContactData);
+
+		setNewContactData({
+			full_name: "",
+			email: "",
+			agenda_slug: "leonardo_agenda",
+			address: "",
+			phone: "",
+		});
+	};
+
+	console.log(newContactData)
 
 	return (
 		<div className="container mt-5">
 			<h1 className="text-center">Add a new contact</h1>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<div className="mb-3">
-					<label for="fullname" className="form-label">Full name</label>
+					<label htmlFor="fullname" className="form-label">Full name</label>
 					<input 
 						type="name" 
 						className="form-control" 
 						id="fullname" 
-						value={data.full_name}
-						onChange={(event) => {
-							setData(event.target.value);
-							}	
+						value={newContactData.full_name}
+						onChange={(event) =>
+							setNewContactData({
+								...newContactData,
+								full_name: event.target.value,
+							})
 						}
 						placeholder="Enter full name"
+						required
 					/>
 				</div>
 				<div className="mb-3">
-					<label for="email" className="form-label">Email</label>
+					<label htmlFor="email" className="form-label">Email</label>
 					<input 
 						type="email" 
 						className="form-control" 
 						id="email"
+						value={newContactData.email}
+						onChange={(event) =>
+							setNewContactData({
+								...newContactData,
+								email: event.target.value,
+							})
+						}
 						placeholder="Enter email"
+						required
 					/>
 				</div>
 				<div className="mb-3">
-					<label for="phone" className="form-label">Phone</label>
+					<label htmlFor="phone" className="form-label">Phone</label>
 					<input 
-						type="phone" 
+						type="number" 
 						className="form-control" 
 						id="phone"
+						value={newContactData.phone}
+						onChange={(event) =>
+							setNewContactData({
+								...newContactData,
+								phone: event.target.value,
+							})
+						}
 						placeholder="Enter phone"
+						required
 					/>
 				</div>
 				<div className="mb-3">
-					<label for="address" className="form-label">Address</label>
+					<label htmlFor="address" className="form-label">Address</label>
 					<input 
-						type="address" 
+						type="name" 
 						className="form-control" 
 						id="address"
+						value={newContactData.address}
+						onChange={(event) =>
+							setNewContactData({
+								...newContactData,
+								address: event.target.value,
+							})
+						}
 						placeholder="Enter address"
+						required
 					/>
 				</div>
-				<button type="submit" className="btn btn-primary" style={{width:"100%"}}>Save</button>
+				<button 
+					type="submit" 
+					className="btn btn-primary" 
+					style={{width:"100%"}}
+					>Save
+				</button>
 			</form>
 			<br />
 			<Link to="/">
