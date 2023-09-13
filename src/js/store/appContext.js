@@ -24,6 +24,9 @@ const injectContext = PassedComponent => {
 		useEffect(() => {
 			state.actions.getAgenda()
 			state.actions.newContact()
+			state.actions.deleteContact()
+			state.actions.getContactById()
+			state.actions.updateContact()
 			/**
 			 * EDIT THIS!
 			 * This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime

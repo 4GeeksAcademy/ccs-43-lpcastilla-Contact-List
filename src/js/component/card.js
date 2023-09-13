@@ -3,6 +3,17 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 export const Card = ({data}) => {
+    const { actions } = useContext(Context);
+
+    const handleDeleteClick = () => {
+        actions.deleteContact(data.id)
+            .then(() => {
+                actions.getAgenda();
+            })
+            .catch((error) => {
+                console.log("Error al eliminar el contacto:", error);
+            });
+    };
 
 	return (
         <div className="container-fluid d-flex justify-content-center">
@@ -24,8 +35,10 @@ export const Card = ({data}) => {
                     </div>
                     <div className="col-md-2">
                         <div className="card-body text-end">  
-                            <i className="fa-solid fa-pen me-3"></i>
-                            <i className="fa-solid fa-trash-can me-2"></i>
+                            <Link to={`/edit/${data.id}`}>
+                                <i className="fa-solid fa-pen me-3"></i>
+                            </Link>
+                            <i className="fa-solid fa-trash-can me-2" onClick={handleDeleteClick} style={{ cursor: "pointer" }}></i>
                         </div>
                     </div>
                 </div>
