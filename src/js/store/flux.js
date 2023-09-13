@@ -2,13 +2,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			agenda: [],
-			newContact: [],
+			newContact: [
+				{
+					full_name: "",
+					email: "",
+					agenda_slug: "leonardo_agenda",
+					address: "",
+					phone: "",
+				},
+			],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
 			getAgenda: async () => {
 				try {
-					const response = await fetch("https://playground.4geeks.com/apis/fake/contact/agenda/Daniela_Agenda")
+					const response = await fetch("https://playground.4geeks.com/apis/fake/contact/agenda/leonardo_agenda")
 					if (response.status != 200) {
 						console.log("Error en la solicitud. Code: ", response.status)
 					}
@@ -20,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			newContact: async () => {
 				try {
-					const API_URL = "https://playground.4geeks.com/apis/fake/contact/agenda/Daniela_Agenda";
+					const API_URL = "https://playground.4geeks.com/apis/fake/contact/";
 					const requestConfig = {
 						method: "POST",
 						headers: {
@@ -28,11 +36,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						body: JSON.stringify([])
 					}
-					const response = await fetch(API_URL + "/todos/user/lpcastilla", requestConfig); 
+					const response = await fetch(API_URL, requestConfig); 
 						if (response.status != 200) {
 						console.log("Error en la solicitud. Code: ", response.status)
-						return;
 					}
+					const body = await response.json()
+					setStore({ newContact: body});
 				} catch(error) {
 					console.log(error)
 				}
