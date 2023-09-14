@@ -35,7 +35,7 @@ export const Card = ({data}) => {
                     </div>
                     <div className="col-md-2">
                         <div className="card-body text-end">  
-                            <Link to={`/edit/${data.id}`}>
+                            <Link to={`/demo/edit?contactId=${data.id}`}>
                                 <i className="fa-solid fa-pen me-3"></i>
                             </Link>
                             <i className="fa-solid fa-trash-can me-2" onClick={handleDeleteClick} style={{ cursor: "pointer" }}></i>

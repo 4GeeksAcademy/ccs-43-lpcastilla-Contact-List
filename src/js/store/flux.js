@@ -2,15 +2,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			agenda: [],
-			newContact: [
-				{
-					full_name: "",
-					email: "",
-					agenda_slug: "leonardo_agenda",
-					address: "",
-					phone: "",
-				},
-			],
+			newContact: {
+				full_name: "",
+				email: "",
+				agenda_slug: "leonardo_agenda",
+				address: "",
+				phone: "",
+			  },
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -37,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(newContactData)
 					}
 					const response = await fetch(API_URL, requestConfig); 
-						if (response.status != 200) {
+						if (response.status != 201) {
 						console.log("Error en la solicitud. Code: ", response.status)
 					}
 					const body = await response.json()
@@ -54,7 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					};
 					const response = await fetch(API_URL, requestConfig);
 		
-					if (response.status === 204) {
+					if (response.status === 201) {
 						console.log("Contacto eliminado con éxito.");
 		
 						actions.getAgenda();
@@ -70,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const API_URL = `https://playground.4geeks.com/apis/fake/contact/${contactId}`;
 					const response = await fetch(API_URL);
 			
-					if (response.status === 200) {
+					if (response.status === 204) {
 						const contactData = await response.json();
 						return contactData;
 					} else {

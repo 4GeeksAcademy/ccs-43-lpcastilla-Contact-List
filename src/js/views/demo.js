@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
@@ -7,6 +8,11 @@ import "../../styles/demo.css";
 
 export const Demo = () => {
 	const { actions } = useContext(Context);
+	const location = useLocation();
+	const queryParams = new URLSearchParams(location.search);
+	const contactId = queryParams.get("contactId");
+
+	const isEditing = !!contactId;
 
 	const [newContactData, setNewContactData] = useState({
 		full_name: "",
@@ -16,10 +22,26 @@ export const Demo = () => {
 		phone: "",
 	});
 
+	useEffect(() => {
+		if (isEditing) {
+		  actions.getContactById(contactId)
+			.then((data) => {
+			  setNewContactData(data);
+			})
+			.catch((error) => {
+			  console.log("Error al cargar los detalles del contacto:", error);
+			});
+		}
+	  }, [isEditing, contactId]);
+
 	const handleSubmit = async (event) => {
 		event.preventDefault(); 
 
-		await actions.newContact(newContactData);
+		if (isEditing) {
+			await actions.updateContact(contactId, newContactData);
+		  } else {
+			await actions.newContact(newContactData);
+		}
 
 		setNewContactData({
 			full_name: "",
@@ -34,7 +56,7 @@ export const Demo = () => {
 
 	return (
 		<div className="container mt-5">
-			<h1 className="text-center">Add a new contact</h1>
+			<h1 className="text-center">Add/update a new contact</h1>
 			<form onSubmit={handleSubmit}>
 				<div className="mb-3">
 					<label htmlFor="fullname" className="form-label">Full name</label>
@@ -90,7 +112,7 @@ export const Demo = () => {
 				<div className="mb-3">
 					<label htmlFor="address" className="form-label">Address</label>
 					<input 
-						type="name" 
+						type="text" 
 						className="form-control" 
 						id="address"
 						value={newContactData.address}
